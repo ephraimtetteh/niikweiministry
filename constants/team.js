@@ -6,10 +6,9 @@ import niiKwei5 from "@/public/Ruby.jpeg";
 import niiKwei6 from "@/public/rene.jpg";
 import niiKwei7 from "@/public/sam.jpg";
 import niiKwei8 from "@/public/philip.jpg";
-import niiKwei9 from "@/public/precious.jpg";
 import niiKwei10 from "@/public/enock.jpg";
-import niiKwei11 from "@/public/minister.jpg";
-import niiKwei12 from "@/public/yvonne2.jpg";
+import niiKwei11 from "@/public/nii2.jpg";
+import niiKwei12 from "@/public/yvonne3.jpg";
 
 export const teamMembers = [
     {
@@ -28,6 +27,14 @@ export const teamMembers = [
       fullDescription:
         "With over two decades of diverse experience across various industries, Ruby Oye Otoo brings a wealth of expertise, professionalism, and passion to her role as Administrative Manager at Nii Kwei Ministries. Her dedication to the work of the Lord and her commitment to advancing the ministry’s mission make her an invaluable asset to the team. Ruby is a dynamic leader, known for her exceptional organizational skills and ability to foster efficient workflows, ensuring the ministry operates seamlessly to achieve its God-given purpose. She views her administrative role as a form of ministry, supporting the work of Nii Kwei Ministries with diligence and a servant’s heart. Her extensive career has honed her capabilities in administration, team management, and strategic planning, enabling her to address complex challenges with creativity and faith. Ruby’s unwavering commitment to excellence is driven by her deep desire to see God’s kingdom thrive and to empower  the team to fulfill their divine calling. At Nii Kwei Ministries, Ruby plays a pivotal role in overseeing operations, managing resources, and ensuring the smooth execution of programs and activities that impact lives and glorify God. She is deeply passionate about mentoring and inspiring others, creating a culture of collaboration, spiritual growth, and purpose within the organization.",
       imageUrl: niiKwei5,
+    },
+    {
+      name: "Yvonne Blankson",
+      title: "Welfare Manager",
+      shortDescription: "Yvonne Blankson serves as the Welfare Manager of Nii Kwei Ministries, bringing her expertise as an HR professional and CEO of Yammy Foods to...",
+      fullDescription:
+        "Yvonne Blankson serves as the Welfare Manager of Nii Kwei Ministries, bringing her expertise as an HR professional and CEO of Yammy Foods to the role. She is committed to fostering a supportive environment that prioritizes the well-being and quality of life of ministry team members, as well as individuals encountered during ministry tours and outreach.Yvonne actively collaborates with team members, organizations, communities, and partners to enhance welfare services, strengthen support systems, and ensure holistic care for individuals, groups, and the ministry as a whole.",
+      imageUrl: niiKwei12,
     },
     {
       name: "Kellie Twumwaa Twum ",
@@ -87,22 +94,7 @@ export const teamMembers = [
         "Philip Asante serves as the Youth Coordinator for Nii Kwei Ministries, where he is dedicated to mentoring and empowering young people to fulfill their God-given potential. With a passion for youth development and leadership, Philip plays a vital role in shaping programs that align with the ministry’s mission to transform lives and build a Christ-centered legacy. Philip’s professional experience includes roles in administration and logistics, such as his time at Jumia Ghana and his ongoing work at Glamek Exclusive Institute. These experiences have honed his organizational and operational skills, which he effectively applies to his ministry work. In addition to his professional background, Philip has demonstrated a strong commitment to leadership and volunteerism. He serves as Vice President of the Glorious Youth Ministry at Fountain of Glory A/G, contributes as a Media Assistant, and supports the church’s children’s department. His volunteer work also extends to the Head of State Award Scheme, where he helps develop young people into confident leaders. Through his work at Nii Kwei Ministries, Philip combines his skills and passion to inspire and uplift the next generation, helping them realize their potential and glorify God in their lives.",
       imageUrl: niiKwei8,
     },
-    {
-      name: "Yvonne Blankson",
-      title: "Welfare Manager",
-      shortDescription: "Yvonne Blankson serves as the Welfare Manager of Nii Kwei Ministries, bringing her expertise as an HR professional and CEO of Yammy Foods to...",
-      fullDescription:
-        "Yvonne Blankson serves as the Welfare Manager of Nii Kwei Ministries, bringing her expertise as an HR professional and CEO of Yammy Foods to the role. She is committed to fostering a supportive environment that prioritizes the well-being and quality of life of ministry team members, as well as individuals encountered during ministry tours and outreach.Yvonne actively collaborates with team members, organizations, communities, and partners to enhance welfare services, strengthen support systems, and ensure holistic care for individuals, groups, and the ministry as a whole.",
-      imageUrl: niiKwei12,
-    },
-    {
-      name: "Precious Mawunya-Ko",
-      title: "Public Relations Manager",
-      shortDescription: "As the Public Relations Officer (PRO) of Nii Kwei Ministries, Precious leverages his extensive experience in public relations, media strategy, content creation, and digital...",
-      fullDescription:
-        "As the Public Relations Officer (PRO) of Nii Kwei Ministries, Precious leverages his extensive experience in public relations, media strategy, content creation, and digital marketing to amplify the ministry’s message and enhance its public engagement. His background in media relations, broadcasting, and digital content management ensures that the ministry effectively communicates its vision to a wider audience. Precious oversees the ministry’s public relations efforts, ensuring that its message is effectively communicated through various media channels. He manages press releases, media engagements, and partnerships to enhance the ministry’s visibility and credibility within the Christian community and beyond. His experience as a radio/TV host and media pundit allows him to create high-quality written content for the ministry’s platforms. And he ensures that the ministry’s message is engaging, clear, and widely disseminated. With his passion for strategic communication and gospel media, Precious  plays a key role in ensuring that Nii Kwei Ministries remains a trusted and influential voice in Christian ministry and public engagement.",
-      imageUrl: niiKwei9,
-    },
+   
     {
       name: "Enock Wilson Jnr.",
       title: "Media Design Lead",

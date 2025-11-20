@@ -1,6 +1,6 @@
 import Event1 from '@/public/events/flyer1.jpg'
 import Event2 from '@/public/events/flyer4.jpg'
-import Event3 from '@/public/events/event3.png'
+import Glory from '@/public/events/glory.jpg'
 import HopeInvasion from '@/public/events/hopeInvasion.jpg'
 import MTN from '@/public/events/mtnStands.jpg'
 import FOG2 from '@/public/events/FoG2.jpg'
@@ -51,5 +51,12 @@ export const Pastevents = [
         description: "An Events organized by MTN Ghana that brough christians together to worship ", 
         venue: "Grand Arena", 
         time: "4:30AM", date: {day: "15", month: "June", year: "2025"}
+    },
+    {
+        image: Glory, 
+        title: "Glory", 
+        description: "An original song writen by minister Nii, that talks about the glory of God featuring Herty Corgie", 
+        venue: "Fountain of Glory2", 
+        time: "4:30AM", date: {day: "1", month: "October", year: "2025"}
     },
 ]
