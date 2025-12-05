@@ -44,7 +44,7 @@ const page = () => {
               Your browser does not support the video tag.
             </video>
             <div className='bg-black absolute w-full bg-opacity-20'></div>
-            <div className='absolute max-md:mt-10 w-full flex flex-col gap-5 justify-center text-white px-6 lg:px-20'>
+            <div className='absolute max-md:mt-10 bottom-20 w-full flex flex-col gap-5 justify-center text-white px-6 lg:px-20'>
               <div className="w-full flex flex-col gap-5 justify-center text-white">
                 <p className="lg:text-lg relative pb-1" data-aos="slide-right" data-aos-delay="100">
                   Welcome to Nii Kwei Ministries
@@ -54,12 +54,12 @@ const page = () => {
                 <p className='lg:w-[60%]' data-aos="slide-right" data-aos-delay="500">Access sermons, worship sessions, and memorable moments from Nii Kwei Ministry.</p>
               </div>
               <div className="flex max-md:w-full flex-col lg:flex-row items-center lg:gap-6 gap-3" data-aos="zoom-in">
-                <Link href="" className='max-md:w-full'>
+                <Link href="https://www.instagram.com/niikweiworld?igsh=eml0N21peHJmZzV3" className='max-md:w-full'>
                   <button className="bg-button w-full border border-button py-2 px-6 text-lg rounded-md hover:bg-purple-600 transition duration-300">
                     Visit Our Channel
                   </button>
                 </Link>
-                <button className="border max-md:w-full border-white py-2 px-6 text-lg rounded-md">View Gallery</button>
+                {/* <button className="border max-md:w-full border-white py-2 px-6 text-lg rounded-md">View Gallery</button> */}
               </div>
             </div>
         </div>

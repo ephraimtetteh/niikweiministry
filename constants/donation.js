@@ -13,7 +13,7 @@ export const impact = [
 ]
 
 export const give = [
-    {image: Host, text: "Host live-changing worship service"},
-    {image: Gift, text: "Giving resourcesfor spiritual growth"},
+    {image: Host, text: "Host life-changing worship service"},
+    {image: Gift, text: "Giving resources for spiritual growth"},
     {image: Host, text: "Serve vulnerable communities"},
 ]

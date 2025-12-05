@@ -12,7 +12,7 @@ export const store = [
     {
         images: FountainOfGlory,
         image: [FountainOfGlory, FountainOfGloryBlack, FountainOfGloryWhite, FountainOfGloryGray],
-        name: "Foundation of Glory T-Shirt",
+        name: "Fountain of Glory T-Shirt",
         category: "Clothing",
         price: 75.00,
         description: "Comfortable cotton t-shirt featuring our ministry logo. Perfect for casual wear and showing your support.",
@@ -22,7 +22,7 @@ export const store = [
     {
         images: LetJudahLead,
         image: [LetJudahLead, LetJudahLead, LetJudahLead, LetJudahLead],
-        name: "Let Judah Lead T-Shirt",
+        name: "The Judah Experience T-Shirt",
         category: "Clothing",
         price: 75.00,
         description: "Comfortable cotton t-shirt featuring our ministry logo. Perfect for casual wear and showing your support.",

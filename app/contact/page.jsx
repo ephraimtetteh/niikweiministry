@@ -90,7 +90,7 @@ const page = () => {
           className="bg-cover lg:hidden bg-center absolute w-full h-full"
         />
 
-        <div className="absolute inset-0 flex items-center justify-center md:justify-start px-6 md:px-20">
+        <div className="absolute bottom-20 flex items-center justify-center md:justify-start px-6 md:px-20">
           <div
             className="text-white flex flex-col items-start"
             data-aos="fade-right"
@@ -264,7 +264,7 @@ const page = () => {
                 className="w-6 h-6"
               />
               <span className="text-sm md:text-lg">
-                info@niikweiministries.org
+                info@niikweiministries.com
               </span>
             </div>
             <div className="flex items-center gap-2" data-aos="zoom-in">

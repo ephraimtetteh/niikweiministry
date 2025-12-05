@@ -32,7 +32,7 @@ const page = () => {
                   <span className="absolute left-0 bottom-0 w-10 h-1 bg-violet-500"></span>
                 </p>
                 <h1 className='text-3xl lg:text-5xl font-semibold lg:w-[65%] leading-tight' data-aos="slide-right" data-aos-delay="300">Shop Nii Kwei Ministry Merchandise</h1>
-                <p className='lg:w-[60%]' data-aos="slide-right" data-aos-delay="500">Explore our collection of ministry-branded apparel, accessories, and digital products. Every purchase supports our mission to transform lives through worship and service</p>
+                <p className='lg:w-[60%]' data-aos="slide-right" data-aos-delay="500">Explore our clothing range now, with accessories and digital products coming soon.</p>
               </div>
               <div className="flex items-center gap-6">
                 <button className="bg-button border border-button py-2 px-6 text-lg rounded-md max-lg:w-full" data-aos="zoom-in">Shop Now</button>

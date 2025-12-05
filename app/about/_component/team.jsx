@@ -20,15 +20,15 @@ const TeamSection = () => {
 
   return (
     <div className="lg:px-28 px-6 lg:text-center my-16">
-      <h2 className="text-3xl font-bold mb-8 relative pb-1" data-aos="fade-up">
+      <h2 className="text-3xl font-bold mb-8 relative py-4" data-aos="fade-up">
         Meet Our Team
         <span className="absolute left-0 lg:left-1/2 bottom-0 w-[10%] h-1 rounded-full bg-violet-500"></span>
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8 py-8">
         {teamMembers.map((member) => (
           <div
             key={member.name}
-            className="bg-white rounded-lg lg:shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105"
+            className="bg-white flex rounded-lg lg:shadow overflow-hidden transition-transform duration-300 transform hover:scale-105"
             data-aos="zoom-in"
           >
             <Image
@@ -36,12 +36,12 @@ const TeamSection = () => {
               alt="team member"
               width={300}
               height={300}
-              className="w-full h-[300px] object-fill"
+              className="w-[300px] h-[300px]  object-fill"
             />
             <div className="p-4">
               <h3 className="text-xl font-semibold">{member.name}</h3>
               <p className="text-gray-600 font-semibold">{member.title}</p>
-              <p className="text-gray-500 text-[14px] mt-2">{member.shortDescription}</p>
+              <p className="text-gray-500 px-8 py-4 text-[14px] mt-2">{member.shortDescription}</p>
               <button
                 className="text-violet-500 font-medium mt-2 hover:underline"
                 onClick={() => openModal(member)}

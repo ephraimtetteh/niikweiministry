@@ -80,15 +80,15 @@ const generateTransactionId = () => {
 
 // Format currency
 export const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-GH', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'GHS',
     minimumFractionDigits: 2
   }).format(amount);
 };
 
 // Predefined donation amounts
-export const predefinedAmounts = [50, 100, 150, 200];
+export const predefinedAmounts = [50, 100, 200, 500];
 
 // Donation frequencies
 export const donationFrequencies = [

@@ -57,6 +57,7 @@ const page = () => {
           <Booking />
         </div>
       </div>
+      
       <div className="grid grid-cols-1 items-center gap-10 px-6 lg:px-20 py-16">
         <div className="flex flex-col gap-4">
           <h1

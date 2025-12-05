@@ -52,13 +52,13 @@ const page = () => {
             <Image src={images[currentImageIndex]} alt='hero' className="lg:object-cover max-lg:hidden object-fill bg-c bg-center relative w-full h-full" />
             <Image src={Hero2} alt='hero' className="lg:object-cover lg:hidden object-fill bg-c bg-center relative w-full h-full" />
             <div className='bg-black absolute w-full bg-opacity-20'></div>
-            <div className='absolute max-md:mt-10 w-full flex flex-col gap-5 justify-center text-white px-6 lg:px-32'>
+            <div className='absolute max-md:mt-10 w-full bottom-10 flex flex-col gap-5 justify-center text-white px-6 lg:px-32'>
               <div className="w-full flex flex-col gap-5 justify-center text-white">
-                <p className="lg:text-lg relative pb-1" data-aos="slide-right" data-aos-delay="100">
+                <p className="lg:text-lg relative pb-4" data-aos="slide-right" data-aos-delay="100">
                   Welcome to Nii Kwei Ministries
                   <span className="absolute left-0 bottom-0 w-20 h-1 bg-violet-500"></span>
                 </p>
-                <h1 className='text-4xl lg:text-6xl font-semibold lg:w-[50%] leading-tight text-violet-500/50' data-aos="slide-right" data-aos-delay="300">
+                <h1 className='text-4xl lg:text-6xl font-semibold py-2 lg:w-[50%] leading-tight text-violet-500/80' data-aos="slide-right" data-aos-delay="300">
                   Transforming Lives Through Worship and Service.
                 </h1>
                 <p className='lg:w-[60%]' data-aos="slide-right" data-aos-delay="500">
@@ -121,7 +121,7 @@ const page = () => {
 
 
         {/* ============== Video */}
-        <div className='relative'>
+        {/* <div className='relative'>
           <Image src={Deco} alt="deco" className='absolute top-0 left-0 lg:w-48 w-28'/>
           <div className='flex flex-col gap-4 lg:items-center w-full h-full py-24 px-6 lg:px-16'>
             <h1 className="text-3xl font-semibold relative pb-1" data-aos="fade-up">
@@ -130,7 +130,7 @@ const page = () => {
             </h1>
             <SermonCard />
           </div>
-        </div>
+        </div> */}
 
 
 

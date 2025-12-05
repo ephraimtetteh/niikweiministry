@@ -56,7 +56,7 @@ const page = () => {
           alt="hero section for about page"
           className="bg-cover lg:hidden bg-center absolute w-full h-full"
         />
-        <div className="absolute inset-0 flex items-center justify-start px-6 lg:px-20">
+        <div className="absolute bottom-20 flex items-center justify-start px-6 lg:px-20">
           <div
             className="text-white flex flex-col items-start"
             data-aos="fade-right"

@@ -25,7 +25,7 @@ const page = () => {
             <Image placeholder='blur' src={Hero} alt='hero' className="bg-cover max-lg:hidden bg-center relative w-full h-full" />
             <Image placeholder='blur' src={Hero2} alt='hero' className="bg-cover bg-center lg:hidden relative w-full h-full" />
             <div className='bg-black absolute w-full bg-opacity-20'></div>
-            <div className='absolute max-md:mt-10 w-full flex flex-col gap-5 justify-center text-white px-6 lg:px-20'>
+            <div className='absolute max-md:mt-10 bottom-20 w-full flex flex-col gap-5 justify-center text-white px-6 lg:px-20'>
               <div className="w-full flex flex-col gap-5 justify-center text-white">
                 <p className="lg:text-lg relative pb-1" data-aos="slide-right" data-aos-delay="100">
                   Donation
@@ -34,9 +34,9 @@ const page = () => {
                 <h1 className='text-3xl lg:text-5xl font-semibold w-full lg:w-[55%] leading-tight' data-aos="slide-right" data-aos-delay="300">Partner With Us To Transform Lives</h1>
                 <p className='lg:w-[57%]' data-aos="slide-right" data-aos-delay="500">Your generosity helps us spread the Gospel, serve communities, and empower believers worldwide.</p>
               </div>
-              <div className="flex items-center gap-6" data-aos="zoom-in">
+              {/* <div className="flex items-center gap-6" data-aos="zoom-in">
                 <button className="bg-button max-lg:w-full border border-button py-2 px-6 text-lg rounded-md">Donate Now</button>
-              </div>
+              </div> */}
             </div>
         </div>
         <div className="h-[160vh] lg:h-[55vh] flex items-center justify-center w-full">
@@ -83,7 +83,7 @@ const page = () => {
                     })}
                 </div>
                 <div className='flex flex-col gap-3 w-full items-center' data-aos="zoom-in">
-                    <p>Every gifts, no matter the size, makes the difference</p>
+                    <p>Every gifts, no matter the size, makes a difference</p>
                     <button className="bg-button border border-white py-2 px-6 text-lg rounded-md text-white w-fit">Read More</button>
                 </div>
             </div>

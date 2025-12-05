@@ -32,23 +32,32 @@ const StoreCard = () => {
       {store.map((item, id) => {
         return (
           <Link href={`/store/${id}`} key={id}>
-            <div className='flex flex-col gap-2 shadow-xl pb-4 rounded-md transition duration-300 hover:shadow-2xl' data-aos="zoom-in">
-              <Image src={item.images} alt={item.name} className='rounded-t-md'/>
-              <div className='flex flex-col gap-1 px-4'>
+            <div
+              className="flex flex-col gap-2 shadow-xl pb-4 rounded-md transition duration-300 hover:shadow-2xl"
+              data-aos="zoom-in"
+            >
+              <Image
+                src={item.images}
+                alt={item.name}
+                className="rounded-t-md"
+              />
+              <div className="flex flex-col gap-1 px-4">
                 <p>{item.category}</p>
-                <p className='text-xl font-semibold'>{item.name}</p>
-                <p className='text-purple-500 text-medium'>${item.price}.00</p>
+                <p className="text-xl font-semibold">{item.name}</p>
+                <p className="text-purple-500 text-medium">
+                  GH₵{item.price}.00
+                </p>
               </div>
-              <button 
+              <button
                 onClick={(e) => handleAddToCart(e, { ...item, id })}
                 disabled={loading[id]}
-                className='border border-button py-2 rounded-md text-button mx-4 hover:bg-button hover:text-white transition duration-300'
+                className="border border-button py-2 rounded-md text-button mx-4 hover:bg-button hover:text-white transition duration-300"
               >
-                {loading[id] ? 'Adding...' : 'Add to cart'}
+                {loading[id] ? "Adding..." : "Add to cart"}
               </button>
             </div>
           </Link>
-        )
+        );
       })}
     </div>
   )

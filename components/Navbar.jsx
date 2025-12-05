@@ -14,34 +14,52 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 const Navbar = () => {
     const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
     const { getItemCount, cartItems } = useCart();
+    const [isScrolled, setIsScrolled] = useState(false)
     const pathname = usePathname(); // Get the current route
 
     const toggleNavbar = () => {
         setMobileDrawerOpen(!mobileDrawerOpen);
     };
 
+    const handleScroll = () => {
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 20){
+                return (isScrolled?`${backdrop-blur-lg }`:'')
+            }
+        })
+        return window.removeEventListener('scroll', )
+    }
+
     return (
-        <nav className="fixed w-full top-0 z-50 py-3 backdrop-blur-lg bg-black bg-opacity-20">
-            <div className="container px-6 lg:px-16 mx-auto relative text-sm">
-                <div className="flex justify-between items-center">
-                    <Link href="/" className="flex items-center flex-shrink-0">
-                        <Image src={logo} alt="" className="w-10" />
+      <nav className="fixed w-full top-0 z-50 py-3 backdrop-blur-lg  bg-black bg-opacity-20">
+        <div className="container px-6 lg:px-16 mx-auto relative text-sm">
+          <div className="flex justify-between items-center">
+            <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
+              {["/", "/about", "/contact", "/donation", "/event"].map(
+                (link, index) => (
+                  <li
+                    key={index}
+                    className={`hover:text-purple duration-300 ease-in ${
+                      pathname === link ? "text-purple-500 underline" : ""
+                    }`}
+                  >
+                    <Link href={link}>
+                      {link === "/"
+                        ? "Home"
+                        : link
+                            .replace("/", "")
+                            .replace(/-/g, " ")
+                            .replace(/^\w/, (c) => c.toUpperCase())}
                     </Link>
-                    <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
-                        {["/", "/about", "/contact", "/donation", "/store", "/event"].map((link, index) => (
-                            <li
-                                key={index}
-                                className={`hover:text-purple duration-300 ease-in ${
-                                    pathname === link ? "text-purple-500 underline" : ""
-                                }`}
-                            >
-                                <Link href={link}>
-                                    {link === "/" ? "Home" : link.replace("/", "").replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                    <div className="flex items-center lg:gap-10 gap-4 text-white relative">
+                  </li>
+                )
+              )}
+            </ul>
+
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <Image src={logo} alt="" className="w-10" />
+            </Link>
+            {/* <div className="flex items-center lg:gap-10 gap-4 text-white relative">
                         <div>
                             <FaSearch className="text-xl" />
                         </div>
@@ -59,30 +77,61 @@ const Navbar = () => {
                         >
                             {mobileDrawerOpen ? <AiOutlineClose /> : <CgMenu />}
                         </button>
-                    </div>
-                </div>
+                    </div> */}
+            <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
+              {["/shopify", "/apple", "/boomplay"].map((link, index) => (
+                <li
+                  key={index}
+                  className={`hover:text-purple duration-300 ease-in ${
+                    pathname === link ? "text-purple-500 underline" : ""
+                  }`}
+                >
+                  <Link href={link}>
+                    {link === "/"
+                      ? "Home"
+                      : link
+                          .replace("/", "")
+                          .replace(/-/g, " ")
+                          .replace(/^\w/, (c) => c.toUpperCase())}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                {/* Mobile Menu */}
-                {mobileDrawerOpen && (
-                    <div className="lg:hidden absolute top-full left-0 right-0 bg-black bg-opacity-20 backdrop-blur-lg py-4 w-full">
-                        <ul className="flex flex-col gap-4 text-white px-6">
-                            {["/", "/about", "/contact", "/donation", "/store", "/event"].map((link, index) => (
-                                <li
-                                    key={index}
-                                    className={`hover:text-purple-500 duration-300 ease-in text-center text-lg py-2 ${
-                                        pathname === link ? "text-purple-500 underline" : ""
-                                    }`}
-                                >
-                                    <Link href={link} onClick={toggleNavbar}>
-                                        {link === "/" ? "Home" : link.replace("/", "").replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+          {/* Mobile Menu */}
+          {mobileDrawerOpen && (
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-black bg-opacity-20 backdrop-blur-lg py-4 w-full">
+              <ul className="flex flex-col gap-4 text-white px-6">
+                {[
+                  "/",
+                  "/about",
+                  "/contact",
+                  "/donation",
+                  "/store",
+                  "/event",
+                ].map((link, index) => (
+                  <li
+                    key={index}
+                    className={`hover:text-purple-500 duration-300 ease-in text-center text-lg py-2 ${
+                      pathname === link ? "text-purple-500 underline" : ""
+                    }`}
+                  >
+                    <Link href={link} onClick={toggleNavbar}>
+                      {link === "/"
+                        ? "Home"
+                        : link
+                            .replace("/", "")
+                            .replace(/-/g, " ")
+                            .replace(/^\w/, (c) => c.toUpperCase())}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-        </nav>
+          )}
+        </div>
+      </nav>
     );
 };
 

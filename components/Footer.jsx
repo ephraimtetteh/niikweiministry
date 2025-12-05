@@ -7,11 +7,11 @@ import Link from 'next/link'
 const Footer = () => {
   return (
     <div className='bg-black text-white w-full px-6 lg:px-16'>
-      <div className='lg:grid flex flex-wrap lg:grid-cols-4 max-lg:gap-6 pt-10 pb-24'>
+      <div className='lg:grid flex flex-wrap lg:grid-cols-3 max-lg:gap-6 pt-10 pb-24'>
         <Image src={Logo} alt='logo' className='max-lg:w-20' />
         <div className='flex flex-col gap-3'>
           <h1 className='text-purple-500 text-xl font-semibold'>Quick Links</h1>
-          <ul className='flex flex-col gap-2 max-lg:text-sm'>
+          <ul className='flex flex-col gap-4 max-lg:text-sm'>
             <Link href='/about'>About Us</Link>
             <Link href="/store">Shop Now</Link>
             <Link href='/contact'>Contact Us</Link>
@@ -19,7 +19,7 @@ const Footer = () => {
             <Link href='/volunteer'>Join Us</Link>
           </ul>
         </div>
-        <div className='flex flex-col gap-3'>
+        {/* <div className='flex flex-col gap-3'>
           <h1 className='text-purple-500 text-xl font-semibold'>Stay Updated</h1>
           <ul className='flex flex-col gap-2 max-lg:text-sm'>
             <li>Newsletter Signup</li>
@@ -28,10 +28,10 @@ const Footer = () => {
             <li>Exclusive Offers</li>
             <li>Special Deals</li>
           </ul>
-        </div>
+        </div> */}
         <div className='flex flex-col gap-3 max-lg:text-sm'>
           <h1 className='text-purple-500 text-xl font-semibold'>Subscribe</h1>
-          <p>Join our newsletter to stay updated on new products and special promotions.</p>
+          <p>Join our newsletter to recieve updates on upcoming events, worship releases, devotional and ways to partner with us.</p>
           <div className='flex items-center gap-2'>
             <input type="email" placeholder='Enter your email' className='p-3 w-full border border-button placeholder:text-white/60 bg-transparent rounded-md' />
             <button className="border border-button py-2 px-4 text-button text-lg rounded-md">Subscribe</button>
