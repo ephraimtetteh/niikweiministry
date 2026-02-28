@@ -15,7 +15,7 @@ const Footer = () => {
             <Link href='/about'>About Us</Link>
             <Link href="/store">Shop Now</Link>
             <Link href='/contact'>Contact Us</Link>
-            <Link href='/donate'>Donate Now</Link>
+            <Link href='/donation'>Donate Now</Link>
             <Link href='/volunteer'>Join Us</Link>
           </ul>
         </div>
