@@ -26,10 +26,6 @@ const Navbar = () => {
         link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
       },
       {
-        name: "Shopify",
-        link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
-      },
-      {
         name: "Audio mark",
         link: "https://audiomack.com/nii-kwei-8",
       },
