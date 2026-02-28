@@ -10,8 +10,11 @@ import "aos/dist/aos.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import emailjs from 'emailjs-com'
+import React, { useRef } from "react";
 
 const page = () => {
+  const form = useRef()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -68,6 +71,23 @@ const page = () => {
     }
   };
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_452uyhb", "template_zm7hgsk", form.current, {
+        publicKey: "7_X7BAG6U_84kyg5T",
+      })
+      .then(
+        () => {
+          toast.success("SUCCESS!, email sent succesfully");
+        },
+        (error) => {
+          toast.error("FAILED...", error.text);
+        },
+      );
+  };
+
   //handleOnChange
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -115,7 +135,7 @@ const page = () => {
         </h2>
 
         {/* Contact Form */}
-        <form className="mt-4 space-y-3 border border-gray-300 rounded-lg p-4">
+        <form ref={form} className="mt-4 space-y-3 border border-gray-300 rounded-lg p-4">
           {/* Name Input */}
           <div>
             <label
@@ -197,7 +217,7 @@ const page = () => {
         <div className="text-center mt-10">
           <button
             type="submit"
-            onClick={handleSubmit}
+            onClick={sendEmail}
             disabled={isSubmitting}
             className="bg-teal-500 text-white font-medium px-6 py-3 rounded-lg hover:bg-teal-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[150px]"
           >
