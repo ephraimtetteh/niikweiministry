@@ -7,6 +7,7 @@ import FountainOfGloryWhite from '@/public/stores/fountain_of_glory_white.jpg'
 import FountainOfGloryGray from '@/public/stores/fountain_of_glory_gray.jpg'
 import Hoodie from '@/public/stores/hoodie.jpg'
 import LetJudahLead from '@/public/stores/let_judah.jpg'
+import hut from '@/public/stores/hut.jpeg'
 
 export const store = [
     {
@@ -16,6 +17,16 @@ export const store = [
         category: "Clothing",
         price: 75.00,
         description: "Comfortable cotton t-shirt featuring our ministry logo. Perfect for casual wear and showing your support.",
+        sizes: ["S", "M", "L", "XL"],
+        inStock: true
+    },
+    {
+        images: hut,
+        image: [FountainOfGlory, FountainOfGloryBlack, FountainOfGloryWhite, FountainOfGloryGray],
+        name: "Ministry Hut",
+        category: "Clothing",
+        price: 100.00,
+        description: "Comfortable cotton hut featuring our ministry logo. Perfect for casual wear and showing your support.",
         sizes: ["S", "M", "L", "XL"],
         inStock: true
     },
