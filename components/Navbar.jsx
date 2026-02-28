@@ -11,11 +11,33 @@ import { BsArrowUpRight } from "react-icons/bs";
 import { CgMenu } from "react-icons/cg";
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 
+
+
+
 const Navbar = () => {
     const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
     const { getItemCount, cartItems } = useCart();
     const [isScrolled, setIsScrolled] = useState(false)
     const pathname = usePathname(); // Get the current route
+
+    const musicLinks = [
+      {
+        name: "Apple",
+        link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
+      },
+      {
+        name: "Shopify",
+        link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
+      },
+      {
+        name: "Audio mark",
+        link: "https://audiomack.com/nii-kwei-8",
+      },
+      {
+        name: "Boomplay",
+        link: "https://www.boomplay.com/artists/93944240?srModel=COPYLINK&srList=WEB&share_content=artist&share_channel=copylink&share_platform=web",
+      },
+    ];
 
     const toggleNavbar = () => {
         setMobileDrawerOpen(!mobileDrawerOpen);
@@ -68,21 +90,14 @@ const Navbar = () => {
             </Link>
          
             <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
-              {["/shopify", "/apple", "/boomplay"].map((link, index) => (
+              {musicLinks.map((item, index) => (
                 <li
                   key={index}
                   className={`hover:text-purple duration-300 ease-in ${
-                    pathname === link ? "text-purple-500 underline" : ""
+                    pathname === item.name ? "text-purple-500 underline" : ""
                   }`}
                 >
-                  <Link href={link}>
-                    {link === "/"
-                      ? "Home"
-                      : link
-                          .replace("/", "")
-                          .replace(/-/g, " ")
-                          .replace(/^\w/, (c) => c.toUpperCase())}
-                  </Link>
+                 <a href={item.link}>{item.name}</a>
                 </li>
               ))}
             </ul>

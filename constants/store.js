@@ -23,7 +23,7 @@ export const store = [
     {
         images: hut,
         image: [FountainOfGlory, FountainOfGloryBlack, FountainOfGloryWhite, FountainOfGloryGray],
-        name: "Ministry Hut",
+        name: "NKM Cap",
         category: "Clothing",
         price: 100.00,
         description: "Comfortable cotton hut featuring our ministry logo. Perfect for casual wear and showing your support.",

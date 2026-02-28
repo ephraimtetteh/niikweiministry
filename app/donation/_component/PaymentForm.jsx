@@ -183,7 +183,7 @@ const PaymentForm = () => {
             </p>
             <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Bank Name: </p>
-                <p className="text-lg text-semibold">XYZ Foundation</p>
+                <p className="text-lg text-semibold">Stanbic Bank</p>
             </div>
             <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Account Number:</p>
@@ -223,7 +223,7 @@ const PaymentForm = () => {
             </div>
             <div className="bg-gray-50 p-3 rounded-md">
                 <p className="text-2xl font-semibold">Payment Summary</p>
-                <p>Amount: $100.00 USD</p>
+                <p>Amount: GHS100.00 </p>
             </div>
           <button className="bg-button text-white w-fit px-4 py-2 rounded-lg">
             Pay with Paystack
