@@ -183,20 +183,20 @@ const PaymentForm = () => {
             </p>
             <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Bank Name: </p>
-                <p className="text-lg text-semibold">Stanbic Bank</p>
+                <p className="text-lg text-semibold">UBA</p>
             </div>
             <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Account Number:</p>
-                <p className="text-lg text-semibold">0123456789</p>
+                <p className="text-lg text-semibold">00916769302511</p>
             </div>
             <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Account Name:</p>
-                <p className="text-lg text-semibold">Nii Kwei Ministry</p>
+                <p className="text-lg text-semibold">Nii Kwei Ministries</p>
             </div>
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
                 <p className="font-medium text-gray-700">Swift Code:</p>
                 <p className="text-lg text-semibold">FBNING</p>
-            </div>
+            </div> */}
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-medium text-gray-700">Transfer Reference</label>
