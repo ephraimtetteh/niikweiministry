@@ -10,6 +10,11 @@ import medley from '@/public/events/medley.jpeg'
 
 
 export const events = [
+ 
+];
+
+
+export const Pastevents = [
   {
     image: medley,
     title: "Worship Medley",
@@ -19,10 +24,6 @@ export const events = [
     time: "4:30PM",
     date: { day: "6", month: "March", year: "2026" },
   },
-];
-
-
-export const Pastevents = [
   {
     image: bless,
     title: "Bless the Lord",

@@ -1,138 +1,154 @@
 "use client";
 
-import { useCart } from '@/context/CartContext';
-import logo from '@/public/logo.png';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useCart } from "@/context/CartContext";
+import logo from "@/public/logo.png";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsArrowUpRight } from "react-icons/bs";
 import { CgMenu } from "react-icons/cg";
-import { FaSearch, FaShoppingCart } from 'react-icons/fa';
-
-
-
 
 const Navbar = () => {
-    const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-    const { getItemCount, cartItems } = useCart();
-    const [isScrolled, setIsScrolled] = useState(false)
-    const pathname = usePathname(); // Get the current route
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const { getItemCount } = useCart();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
-    const musicLinks = [
-      {
-        name: "Apple",
-        link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
-      },
-      {
-        name: "Audio mark",
-        link: "https://audiomack.com/nii-kwei-8",
-      },
-      {
-        name: "Boomplay",
-        link: "https://www.boomplay.com/artists/93944240?srModel=COPYLINK&srList=WEB&share_content=artist&share_channel=copylink&share_platform=web",
-      },
-    ];
+  const musicLinks = [
+    {
+      name: "Apple",
+      link: "https://music.apple.com/gh/artist/nii-kwei/1757263757",
+    },
+    { name: "Audiomack", link: "https://audiomack.com/nii-kwei-8" },
+    {
+      name: "Boomplay",
+      link: "https://www.boomplay.com/artists/93944240?srModel=COPYLINK&srList=WEB&share_content=artist&share_channel=copylink&share_platform=web",
+    },
+  ];
 
-    const toggleNavbar = () => {
-        setMobileDrawerOpen(!mobileDrawerOpen);
+  const toggleNavbar = () => {
+    setMobileDrawerOpen(!mobileDrawerOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    useEffect(() => {
-      const handleScroll = () => {
-        setIsScrolled(window.scrollY > 10);
-      };
+  const navLinks = ["/", "/about", "/music", "/donation", "/contact"];
 
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, [])
-  
-
-    return (
-      <nav
-        className={`absolute bg-transparent top-0 left-0 w-full flex items-center justify-between px-3 md:px-6 lg:px-12 xl:px-12 transition-all duration-500 z-50 ${
-          isScrolled
-            ? "bg-black/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4"
-            : "py-4 md:py-6"
-        }`}
-      >
-        <div className="container px-6 lg:px-16 mx-auto relative text-sm">
-          <div className="flex justify-between items-center">
-            <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
-              {["/", "/about", "/music", "/donation", "/contact"].map(
-                (link, index) => (
-                  <li
-                    key={index}
-                    className={`hover:text-purple duration-300 ease-in ${
-                      pathname === link ? "text-purple-500 underline" : ""
-                    }`}
-                  >
-                    <Link href={link}>
-                      {link === "/"
-                        ? "Home"
-                        : link
-                            .replace("/", "")
-                            .replace(/-/g, " ")
-                            .replace(/^\w/, (c) => c.toUpperCase())}
-                    </Link>
-                  </li>
-                ),
-              )}
-            </ul>
-
-            <Link href="/" className="flex items-center flex-shrink-0">
-              <Image src={logo} alt="" className="w-20" />
-            </Link>
-         
-            <ul className="hidden lg:flex ml-14 space-x-8 font-medium text-lg text-white">
-              {musicLinks.map((item, index) => (
-                <li
-                  key={index}
-                  className={`hover:text-purple duration-300 ease-in ${
-                    pathname === item.name ? "text-purple-500 underline" : ""
-                  }`}
+  return (
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-black/70 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] py-3"
+          : "bg-transparent py-5"
+      }`}
+    >
+      <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
+        {/* LEFT LINKS */}
+        <ul className="hidden lg:flex gap-8 text-white text-[15px] font-medium tracking-wide">
+          {navLinks.map((link, index) => (
+            <li key={index} className="relative group">
+              <Link href={link}>
+                <span
+                  className={`transition duration-300 ${
+                    pathname === link ? "text-purple-400" : "text-white/80"
+                  } group-hover:text-purple-400`}
                 >
-                 <a href={item.link}>{item.name}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+                  {link === "/"
+                    ? "Home"
+                    : link
+                        .replace("/", "")
+                        .replace(/-/g, " ")
+                        .replace(/^\w/, (c) => c.toUpperCase())}
+                </span>
 
-          {/* Mobile Menu */}
-          {mobileDrawerOpen && (
-            <div className="lg:hidden absolute top-full left-0 right-0 bg-black bg-opacity-20 backdrop-blur-lg py-4 w-full">
-              <ul className="flex flex-col gap-4 text-white px-6">
-                {[
-                  "/",
-                  "/about",
-                  "/contact",
-                  "/donation",
-                  "/store",
-                  "/event",
-                ].map((link, index) => (
-                  <li
-                    key={index}
-                    className={`hover:text-purple-500 duration-300 ease-in text-center text-lg py-2 ${
-                      pathname === link ? "text-purple-500 underline" : ""
-                    }`}
-                  >
-                    <Link href={link} onClick={toggleNavbar}>
-                      {link === "/"
-                        ? "Home"
-                        : link
-                            .replace("/", "")
-                            .replace(/-/g, " ")
-                            .replace(/^\w/, (c) => c.toUpperCase())}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                {/* underline animation */}
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ${
+                    pathname === link ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* LOGO */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src={logo}
+            alt="logo"
+            className="w-20 object-contain hover:scale-105 transition duration-300"
+          />
+        </Link>
+
+        {/* RIGHT (MUSIC LINKS) */}
+        <div className="hidden lg:flex items-center gap-4">
+          {musicLinks.map((item, index) => (
+            <a
+              key={index}
+              href={item.link}
+              target="_blank"
+              className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/80 text-sm hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white transition duration-300"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+
+        {/* MOBILE BUTTON */}
+        <div className="lg:hidden text-white text-2xl cursor-pointer">
+          {mobileDrawerOpen ? (
+            <AiOutlineClose onClick={toggleNavbar} />
+          ) : (
+            <CgMenu onClick={toggleNavbar} />
           )}
         </div>
-      </nav>
-    );
+      </div>
+
+      {/* MOBILE MENU */}
+      {mobileDrawerOpen && (
+        <div className="lg:hidden bg-black/90 backdrop-blur-xl px-6 py-6 space-y-6 text-center text-white">
+          {navLinks.map((link, index) => (
+            <Link
+              key={index}
+              href={link}
+              onClick={toggleNavbar}
+              className={`block text-lg ${
+                pathname === link ? "text-purple-400" : "text-white/80"
+              } hover:text-purple-400 transition`}
+            >
+              {link === "/"
+                ? "Home"
+                : link
+                    .replace("/", "")
+                    .replace(/-/g, " ")
+                    .replace(/^\w/, (c) => c.toUpperCase())}
+            </Link>
+          ))}
+
+          {/* music links mobile */}
+          <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
+            {musicLinks.map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                className="py-2 rounded-lg bg-white/5 hover:bg-purple-500 transition"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
 };
 
 export default Navbar;
