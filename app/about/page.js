@@ -74,7 +74,7 @@ const page = () => {
 
        {/* the Vision and Mission Section */}
 
-      <div className="lg:py-10 flex flex-col gap-10 lg:px-20 px-6">
+      <div className="lg:py-10 flex flex-col gap-10 lg:px-40 px-6">
         <div className='py-10 flex flex-col gap-10'>
         <div className='grid grid-cols-1 lg:grid-cols-2 items-center gap-10 mt-10 lg:mt-20'>
           <Image src={Singer2} alt="Singer Nii Kwei" width={700} height={500} className="max-lg:order-2" data-aos="fade-right"/>
