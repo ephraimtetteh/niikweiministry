@@ -15,6 +15,7 @@
     "emailjs": "^5.0.0",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.4.10",
+    "jose": "^6.2.2",
     "next": "^15.5.6",
     "nodemailer": "^8.0.4",
     "react": "^19.0.0",

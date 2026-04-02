@@ -3,14 +3,18 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { usePathname } from "next/navigation";
 
 const LayoutShell = ({ children }) => {
 
+  const pathname = usePathname()
+  const admin = pathname.startsWith('/admin')
+
   return (
     <>
-      <Navbar />
+     { !admin && <Navbar />}
       {children}
-      <Footer />
+      {!admin && <Footer />}
     </>
   );
 };

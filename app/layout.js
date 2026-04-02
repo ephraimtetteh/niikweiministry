@@ -34,11 +34,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <CartProvider>
-          <Navbar />
           <CheckoutProvider>
-            {children}
+            <LayoutShell>{children}</LayoutShell>
           </CheckoutProvider>
-          <Footer />
           <Toaster
             position="top-right"
             toastOptions={{

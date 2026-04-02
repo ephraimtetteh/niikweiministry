@@ -1,11 +1,6 @@
-// app/api/contact/route.js  (Next.js App Router)
-//
-// Receives POST from the contact page, validates required fields,
-// then calls sendContactEmail() which fires:
-//   1. Auto-reply to the submitter
-//   2. Admin notification to ADMIN_EMAIL
-
+// app/api/contact/route.js
 import { sendContactEmail } from "@/utils/sendContactEmail";
+import { addContact } from "@/lib/store";
 
 const REQUIRED = {
   general: ["name", "email", "message"],
@@ -18,14 +13,12 @@ export async function POST(request) {
     const body = await request.json();
     const { formType, ...data } = body;
 
-    // Validate form type
     if (!["general", "events", "booking"].includes(formType)) {
       return Response.json({ error: "Invalid form type" }, { status: 400 });
     }
 
-    // Validate required fields
     const missing = (REQUIRED[formType] ?? []).filter(
-      (field) => !data[field]?.toString().trim(),
+      (f) => !data[f]?.toString().trim(),
     );
     if (missing.length > 0) {
       return Response.json(
@@ -34,10 +27,13 @@ export async function POST(request) {
       );
     }
 
-    // Fire emails — decoupled so an email error never blocks the 200
-    sendContactEmail(formType, data).catch((err) => {
-      console.error("[contact] Email dispatch error:", err.message);
-    });
+    // Save to store
+    addContact(formType, data);
+
+    // Fire emails (non-blocking)
+    sendContactEmail(formType, data).catch((err) =>
+      console.error("[contact] Email error:", err.message),
+    );
 
     return Response.json({ success: true });
   } catch (err) {

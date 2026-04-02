@@ -147,7 +147,7 @@ const page = () => {
 
       {/* ============== events  */}
       
-      <div className="flex flex-col lg:items-center py-6 px-6">
+      <div className="flex flex-col lg:items-center py-20 lg:py-40 px-6">
         <h1 className="text-3xl font-semibold relative pb-1" data-aos="fade-up">
           Upcoming Events
           <span className="absolute left-0 bottom-0 w-20 h-1 bg-violet-500"></span>
@@ -160,7 +160,7 @@ const page = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col lg:items-center py-20 px-6 lg:px-20 bg-gradient-to-b from-black to-[#0a0a0a]">
+      <div className="flex flex-col lg:items-center py-20 lg:py-40 px-6 lg:px-20 bg-gradient-to-b from-black to-[#0a0a0a]">
         <h1 className="text-3xl text-white font-semibold relative pb-1" data-aos="fade-up">
           Past Events & Releases
           <span className="absolute left-0 bottom-0 w-20 h-1 bg-violet-500"></span>

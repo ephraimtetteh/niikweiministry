@@ -39,7 +39,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["/", "/about", "/music", "/donation", "/contact"];
+  const navLinks = ["/", "/about", "/donation", "/contact"];
 
   return (
     <nav
@@ -84,7 +84,7 @@ const Navbar = () => {
           <Image
             src={logo}
             alt="logo"
-            className="w-20 object-contain hover:scale-105 transition duration-300"
+            className="w-10 object-contain hover:scale-105 transition duration-300"
           />
         </Link>
 

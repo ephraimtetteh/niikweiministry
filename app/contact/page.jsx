@@ -148,7 +148,7 @@ export default function ContactPage() {
   const activeTabConfig = TABS.find((t) => t.id === activeTab);
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-black text-white min-h-screen py-20 ">
       {/* ── Hero ── */}
       <div className="h-[60vh] lg:h-[70vh] relative flex items-end overflow-hidden">
         <Image
@@ -167,7 +167,7 @@ export default function ContactPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div
-          className="relative z-10 w-full px-6 lg:px-20 pb-16"
+          className="relative z-10 w-full px-6 lg:px-40 pb-16"
           data-aos="fade-right"
         >
           <p className="text-[11px] font-semibold uppercase tracking-[3px] text-violet-400 mb-3">
