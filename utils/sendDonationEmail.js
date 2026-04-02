@@ -106,7 +106,7 @@ function donorReceiptHtml({
 
       <div class="accent-bar">
         <p>Your gift makes a real difference — helping us spread the Gospel, serve communities,
-        and empower believers worldwide. We are deeply grateful for your partnership.</p>
+        and empower believers nationwide. We are deeply grateful for your partnership.</p>
       </div>
     </div>
 
