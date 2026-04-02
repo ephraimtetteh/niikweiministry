@@ -1,237 +1,313 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
-import { IoLockClosedOutline } from "react-icons/io5";
-import Card from '@/public/donate/card.png'
-import Bank from '@/public/donate/bank.png'
-import Paystack from '@/public/donate/paystack.png'
-import Image from "next/image";
+import { formatCurrency, donationFrequencies } from "@/utils/donationUtils";
 
-const PaymentForm = () => {
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [formData, setFormData] = useState({
-    cardNumber: "",
-    cardExpiry: "",
-    cardCvc: "",
-    amount: "",
-    frequency: "",
+const PAYSTACK_PUBLIC_KEY = "pk_test_74319b74f9e616edf02cf8cb743b6582f2a4099a";
+
+function loadPaystackScript() {
+  return new Promise((resolve, reject) => {
+    if (typeof window === "undefined") return reject(new Error("SSR"));
+    if (window.PaystackPop) return resolve(window.PaystackPop);
+    const existing = document.getElementById("paystack-js");
+    if (existing) {
+      existing.addEventListener("load", () => resolve(window.PaystackPop));
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "paystack-js";
+    script.src = "https://js.paystack.co/v2/inline.js";
+    script.async = true;
+    script.onload = () => resolve(window.PaystackPop);
+    script.onerror = () => reject(new Error("Failed to load Paystack script"));
+    document.head.appendChild(script);
   });
-  const [errors, setErrors] = useState({});
+}
 
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+export function openPaystackPopup({
+  email,
+  amountPesewas,
+  reference,
+  metadata,
+  onSuccess,
+  onCancel,
+}) {
+  loadPaystackScript()
+    .then((PaystackPop) => {
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email,
+        amount: amountPesewas,
+        currency: "GHS",
+        ref: reference,
+        metadata: metadata ?? {},
+        onSuccess: (txn) => onSuccess?.(txn),
+        onCancel: () => onCancel?.(),
+      });
+      handler.openIframe();
+    })
+    .catch((err) => {
+      console.error("Paystack load error:", err);
+      alert(
+        "Could not load payment processor. Check your connection and try again.",
+      );
+    });
+}
 
-  const validateForm = () => {
-    const errors = {};
-    if (!formData.cardNumber) {
-      errors.cardNumber = "Card number is required";
-    }
-    if (!formData.cardExpiry) {
-      errors.cardExpiry = "Expiry date is required";
-    }
-    if (!formData.cardCvc) {
-      errors.cardCvc = "CVC is required";
-    }
-    setErrors(errors);
-  };
+const inputCls =
+  "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm " +
+  "placeholder:text-white/30 outline-none focus:border-violet-500 focus:bg-white/8 " +
+  "focus:ring-2 focus:ring-violet-500/20 transition-all duration-200";
+
+const Field = ({ label, optional, error, children }) => (
+  <div className="flex flex-col gap-2 mb-5">
+    <label className="text-[11px] font-semibold uppercase tracking-[1.5px] text-white/40">
+      {label}
+      {optional && (
+        <span className="ml-1 normal-case tracking-normal font-normal text-white/25">
+          (optional)
+        </span>
+      )}
+    </label>
+    {children}
+    {error && <p className="text-red-400 text-xs">{error}</p>}
+  </div>
+);
+
+const METHODS = [
+  {
+    id: "paystack",
+    label: "Paystack",
+    sub: "Recommended · Fast & secure",
+    icon: "⚡",
+  },
+  {
+    id: "card",
+    label: "Credit / Debit Card",
+    sub: "Visa, Mastercard",
+    icon: "💳",
+  },
+  {
+    id: "bank",
+    label: "Bank Transfer",
+    sub: "UBA · Manual transfer",
+    icon: "🏦",
+  },
+];
+
+export default function PaymentStep({
+  formData,
+  onChange,
+  errors,
+  amount,
+  frequency,
+}) {
+  const [method, setMethod] = useState("paystack");
+  const freqLabel =
+    donationFrequencies.find((f) => f.value === frequency)?.label ?? "One-time";
 
   return (
-    <div className="p-6 bg-white">
-      {/* Secured Payment Header */}
-      <div className="mb-6 bg-purple-50 flex flex-col gap-2 rounded-md">
-        <h2 className="text-lg font-semibold text-gray-800 p-4 gap-4 flex items-center">
-            <IoLockClosedOutline className="text-4xl flex items-center gap-4 text-purple-500" /> 
-            <div className="flex flex-col gap-1">
-                <p>Secured Payment</p>
-                <p className="text-sm text-gray-500">
-                Your payment information is encrypted and secure.
-                </p>
-            </div>
-        </h2>
-      </div>
-
-      {/* Payment Method Selection */}
-      <div className="mb-6">
-        <label className="block font-medium text-gray-700 mb-2">
-          Payment Method
-        </label>
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between border p-3 rounded-md">
-            <div className="flex items-center cursor-pointer gap-2">
-                <input
-                type="radio"
-                id="creditCard"
-                name="paymentMethod"
-                value="creditCard"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="mr-2"
-                />
-                <label htmlFor="creditCard" className="flex items-center">
-                Credit/Debit Card 
-                </label>
-            </div>
-            <Image src={Card} alt="Card" width={30} height={20} />
-          </div>
-          <div className="flex items-center justify-between border rounded-md p-3">
-            <div className="flex items-center cursor-pointer gap-3">
-                <input
-                type="radio"
-                id="bankTransfer"
-                name="paymentMethod"
-                value="bankTransfer"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="mr-2"
-                />
-                <label htmlFor="bankTransfer" className="flex items-center">
-                Bank Transfer 
-                </label>
-            </div>
-            <Image src={Bank} alt="Card" width={30} height={20} />
-          </div>
-          <div className="flex items-center justify-between border rounded-md p-3">
-            <div className="flex items-center cursor-pointer gap-3">
-                <input
-                type="radio"
-                id="paystack"
-                name="paymentMethod"
-                value="paystack"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="mr-2"
-                />
-                <label htmlFor="paystack" className="flex items-center">
-                Paystack
-                </label>
-            </div>
-            <Image src={Paystack} alt="Card" width={60} height={40} />
-          </div>
-        </div>
-      </div>
-
-      {/* Conditional Payment Form */}
-      {paymentMethod === "creditCard" && (
-        <div className="mt-6">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <label className="font-medium">Card Number</label>
-              <input
-                type="text"
-                name="cardNumber"
-                value={formData.cardNumber}
-                onChange={onChange}
-                placeholder="1234 5678 9012 3456"
-                className="border rounded-md p-2"
-                maxLength="19"
-              />
-              {errors?.cardNumber && (
-                <span className="text-red-500 text-sm">{errors.cardNumber}</span>
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="font-medium">Expiry Date</label>
-                <input
-                  type="text"
-                  name="cardExpiry"
-                  value={formData.cardExpiry}
-                  onChange={onChange}
-                  placeholder="MM/YY"
-                  className="border rounded-md p-2"
-                  maxLength="5"
-                />
-                {errors?.cardExpiry && (
-                  <span className="text-red-500 text-sm">{errors.cardExpiry}</span>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="font-medium">CVC</label>
-                <input
-                  type="text"
-                  name="cardCvc"
-                  value={formData.cardCvc}
-                  onChange={onChange}
-                  placeholder="123"
-                  className="border rounded-md p-2"
-                  maxLength="4"
-                />
-                {errors?.cardCvc && (
-                  <span className="text-red-500 text-sm">{errors.cardCvc}</span>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-50 rounded-md">
-              <h3 className="font-medium mb-2">Amount to be charged</h3>
-              <p className="text-2xl font-bold text-purple-600">
-                ${parseFloat(formData.amount || 0).toFixed(2)}
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                {formData.frequency !== "one-time" ? `${formData.frequency} donation` : "One-time donation"}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {paymentMethod === "bankTransfer" && (
-        <div className="flex flex-col gap-4">
-            <div className="mt-6 bg-gray-50 p-5 flex-col flex gap-4 rounded-md">
-            <p className="text-2xl font-semibold mb-2">
-                Bank Transfer Details
+    <div>
+      {/* Amount summary */}
+      <div className="relative rounded-xl overflow-hidden mb-7">
+        {/* background matches site's dark overlay style */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-600/30 via-violet-500/10 to-transparent" />
+        <div className="absolute inset-0 border border-violet-500/20 rounded-xl" />
+        <div className="relative flex items-center justify-between px-6 py-5">
+          <div>
+            <p className="text-[10px] uppercase tracking-[2px] text-violet-400/70 mb-1">
+              Donating
             </p>
-            <div className="flex items-center justify-between">
-                <p className="font-medium text-gray-700">Bank Name: </p>
-                <p className="text-lg text-semibold">UBA</p>
+            <p className="text-3xl font-bold text-white leading-none">
+              {formatCurrency(amount || 0)}
+            </p>
+            <p className="text-xs text-white/40 mt-1.5 capitalize">
+              {freqLabel} contribution
+            </p>
+          </div>
+          <div className="w-12 h-12 rounded-full bg-violet-500/15 border border-violet-500/25 flex items-center justify-center">
+            <span className="text-violet-400 text-lg">✦</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Method picker */}
+      <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-white/40 mb-3">
+        Payment Method
+      </p>
+      <div className="flex flex-col gap-2.5 mb-6">
+        {METHODS.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            onClick={() => setMethod(m.id)}
+            className={[
+              "flex items-center gap-4 px-5 py-4 rounded-xl border text-left transition-all duration-200",
+              method === m.id
+                ? "border-violet-500 bg-violet-500/10 shadow-[0_0_0_1px_rgba(139,92,246,0.2)]"
+                : "border-white/10 bg-white/3 hover:border-white/20 hover:bg-white/5",
+            ].join(" ")}
+          >
+            {/* Radio */}
+            <span
+              className={[
+                "w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all",
+                method === m.id ? "border-violet-500" : "border-white/20",
+              ].join(" ")}
+            >
+              {method === m.id && (
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-500 block" />
+              )}
+            </span>
+            <span className="text-xl leading-none shrink-0">{m.icon}</span>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-white">{m.label}</p>
+              <p className="text-xs text-white/35 mt-0.5">{m.sub}</p>
             </div>
-            <div className="flex items-center justify-between">
-                <p className="font-medium text-gray-700">Account Number:</p>
-                <p className="text-lg text-semibold">00916769302511</p>
-            </div>
-            <div className="flex items-center justify-between">
-                <p className="font-medium text-gray-700">Account Name:</p>
-                <p className="text-lg text-semibold">Nii Kwei Ministries</p>
-            </div>
-            {/* <div className="flex items-center justify-between">
-                <p className="font-medium text-gray-700">Swift Code:</p>
-                <p className="text-lg text-semibold">FBNING</p>
-            </div> */}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-medium text-gray-700">Transfer Reference</label>
-              <input
-                type="text"
-                name=""
-                placeholder=""
-                className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+            {m.id === "paystack" && (
+              <span className="ml-auto text-[10px] font-bold uppercase tracking-[1px] bg-violet-500 text-white px-2.5 py-1 rounded-full shrink-0">
+                Recommended
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Paystack ── */}
+      {method === "paystack" && (
+        <div>
+          <div className="flex items-start gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3.5 mb-5">
+            <svg
+              className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
-            </div>
+            </svg>
+            <p className="text-xs text-emerald-400 leading-relaxed">
+              You'll be redirected to Paystack's encrypted checkout. Your
+              receipt will be emailed instantly after payment.
+            </p>
+          </div>
+          <Field label="Email for Receipt" error={errors?.guestEmail}>
+            <input
+              type="email"
+              name="guestEmail"
+              value={formData.guestEmail}
+              onChange={onChange}
+              placeholder="you@example.com"
+              className={inputCls}
+            />
+          </Field>
         </div>
       )}
 
-      {paymentMethod === "paystack" && (
-        <div className="mt-6 flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-              <label className="font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                name=""
-                placeholder="Your email"
-                className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+      {/* ── Card ── */}
+      {method === "card" && (
+        <div>
+          <div className="flex items-start gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3.5 mb-5">
+            <svg
+              className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
+            </svg>
+            <p className="text-xs text-emerald-400 leading-relaxed">
+              Your card details are encrypted and never stored on our servers.
+            </p>
+          </div>
+          <Field label="Card Number" error={errors?.cardNumber}>
+            <input
+              type="text"
+              name="cardNumber"
+              value={formData.cardNumber}
+              onChange={onChange}
+              placeholder="1234 5678 9012 3456"
+              className={inputCls}
+              maxLength={19}
+            />
+          </Field>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Expiry Date" error={errors?.cardExpiry}>
+              <input
+                type="text"
+                name="cardExpiry"
+                value={formData.cardExpiry}
+                onChange={onChange}
+                placeholder="MM / YY"
+                className={inputCls}
+                maxLength={5}
+              />
+            </Field>
+            <Field label="CVC" error={errors?.cardCvc}>
+              <input
+                type="text"
+                name="cardCvc"
+                value={formData.cardCvc}
+                onChange={onChange}
+                placeholder="•••"
+                className={inputCls}
+                maxLength={4}
+              />
+            </Field>
+          </div>
+        </div>
+      )}
+
+      {/* ── Bank ── */}
+      {method === "bank" && (
+        <div>
+          <div className="rounded-xl border border-white/10 bg-white/3 overflow-hidden mb-5">
+            <div className="px-5 py-3 border-b border-white/8">
+              <p className="text-[10px] font-semibold uppercase tracking-[2px] text-white/30">
+                Bank Details
+              </p>
             </div>
-            <div className="bg-gray-50 p-3 rounded-md">
-                <p className="text-2xl font-semibold">Payment Summary</p>
-                <p>Amount: GHS100.00 </p>
-            </div>
-          <button className="bg-button text-white w-fit px-4 py-2 rounded-lg">
-            Pay with Paystack
-          </button>
+            {[
+              { label: "Bank Name", value: "UBA" },
+              { label: "Account No.", value: "00916769302511" },
+              { label: "Account Name", value: "Nii Kwei Ministries" },
+            ].map((row) => (
+              <div
+                key={row.label}
+                className="flex justify-between items-center px-5 py-3.5 border-b border-white/5 last:border-0"
+              >
+                <span className="text-sm text-white/35">{row.label}</span>
+                <span className="text-sm font-semibold text-white">
+                  {row.value}
+                </span>
+              </div>
+            ))}
+          </div>
+          <Field label="Transfer Reference" optional>
+            <input
+              type="text"
+              name="transferRef"
+              onChange={onChange}
+              placeholder="Your name or a short note"
+              className={inputCls}
+            />
+          </Field>
+          <p className="text-xs text-white/30 leading-relaxed">
+            After transferring, click{" "}
+            <strong className="text-white/50">Complete Donation</strong> to
+            confirm your giving record and receive your receipt.
+          </p>
         </div>
       )}
     </div>
   );
-};
-
-export default PaymentForm;
+}
