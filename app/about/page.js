@@ -1,182 +1,285 @@
-"use client"
+"use client";
 
-import Hero from '@/public/Background.png';
-import Hero8 from '@/public/hero8.jpg';
-import Singer1 from '@/public/Image1.png';
-import Singer2 from '@/public/Image2.png';
-import Banner from '@/public/banner.png';
-import Hero2 from '@/public/mobile-about.png';
-import Banner2 from '@/public/mobile-banner.png';
-import Worship from '@/public/worship.png';
-import { useEffect } from 'react';
-// import Founder2 from '@/public/Image2.png';
-// import Founder3 from '@/public/Image3.png';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import Image from 'next/image';
-import RotatingImage from './_component/RotatingImage';
-import Gallery from './_component/gallery';
-import TeamSection from './_component/team';
-import Values from './_component/values';
-
+import Hero from "@/public/Background.png";
+import Singer1 from "@/public/Image1.png";
+import Singer2 from "@/public/Image2.png";
+import Banner from "@/public/banner.png";
+import Hero2 from "@/public/mobile-about.png";
+import Banner2 from "@/public/mobile-banner.png";
+import Worship from "@/public/worship.png";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Image from "next/image";
+import Link from "next/link";
+import RotatingImage from "./_component/RotatingImage";
+import Gallery from "./_component/gallery";
+import TeamSection from "./_component/team";
+import Values from "./_component/values";
 
 const Do = [
-  {info: "Spread the Gospel through Spirit-led worship and outreach"},
-  {info: "Raise strong Christian leaders who influence society positively"},
-  {info: "Lead believers into deeper encounters with God through worship"},
-  {info: "Provide mentorship and opportunities for spiritual growth"},
-  {info: "Serve communities through outreach and acts of love"}
-]
+  { info: "Spread the Gospel through Spirit-led worship and outreach" },
+  { info: "Raise strong Christian leaders who influence society positively" },
+  { info: "Lead believers into deeper encounters with God through worship" },
+  { info: "Provide mentorship and opportunities for spiritual growth" },
+  { info: "Serve communities through outreach and acts of love" },
+];
 
 const worship = [
-  {info: "Create a powerful atmosphere of God's presence"},
-  {info: "Encourage believers to worship in spirit and in truth"},
-  {info: "Use music as a tool for healing, breakthrough, and transformation"}
-]
+  { info: "Create a powerful atmosphere of God's presence" },
+  { info: "Encourage believers to worship in spirit and in truth" },
+  { info: "Use music as a tool for healing, breakthrough, and transformation" },
+];
 
+// ─── Bullet list ──────────────────────────────────────────────────────────────
+const BulletList = ({ items }) => (
+  <ul className="flex flex-col gap-3 mt-4">
+    {items.map((item, i) => (
+      <li key={i} className="flex items-start gap-3">
+        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-violet-500 shrink-0" />
+        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+          {item.info}
+        </p>
+      </li>
+    ))}
+  </ul>
+);
+
+// ─── Section heading ──────────────────────────────────────────────────────────
+const SectionHeading = ({ eyebrow, title }) => (
+  <div className="mb-5">
+    {eyebrow && (
+      <p className="text-[11px] font-semibold uppercase tracking-[3px] text-violet-500 mb-2">
+        {eyebrow}
+      </p>
+    )}
+    <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 relative pb-3 w-fit">
+      {title}
+      <span className="absolute left-0 bottom-0 w-12 h-[3px] bg-violet-500 rounded-full" />
+    </h2>
+  </div>
+);
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 const page = () => {
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      easing: "ease-linear",
-      once: false,
-    });
+    AOS.init({ duration: 1000, easing: "ease-linear", once: false });
   }, []);
 
   return (
-    <div>
-      <div className="md:h-[60vh] h-[50vh] flex items-center justify-center w-full relative font-sans">
+    <div className="bg-white text-gray-900">
+      {/* ── Hero ── */}
+      <div className="md:h-[60vh] h-[50vh] flex items-center w-full relative overflow-hidden">
         <Image
           src={Hero}
-          alt="hero section for about page"
-          className="bg-cover max-lg:hidden bg-center absolute w-full h-full"
+          alt="About hero"
+          fill
+          className="object-cover max-lg:hidden"
         />
         <Image
           src={Hero2}
-          alt="hero section for about page"
-          className="bg-cover lg:hidden bg-center absolute w-full h-full"
+          alt="About hero"
+          fill
+          className="object-cover lg:hidden"
         />
-        <div className="absolute bottom-20 flex items-center justify-start px-6 lg:px-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+
+        <div className="relative z-10 px-6 lg:px-20" data-aos="fade-right">
+          <p className="text-[11px] font-semibold uppercase tracking-[3px] text-violet-300 mb-3">
+            Our Story
+          </p>
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-3 leading-tight">
+            About Us
+          </h1>
+          <div className="w-12 h-[3px] bg-violet-500 rounded-full mb-4" />
+          <p className="text-white/70 text-base lg:text-lg max-w-md">
+            Who we are and what we do
+          </p>
+        </div>
+      </div>
+
+      {/* ── Content sections ── */}
+      <div className="px-6 lg:px-20 xl:px-32">
+        {/* Mission */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20 py-16 lg:py-24">
           <div
-            className="text-white flex flex-col items-start"
+            className="relative rounded-2xl overflow-hidden shadow-xl"
             data-aos="fade-right"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold relative pb-1">
-              About Us
-              <span className="absolute left-0 bottom-0 w-[50%] h-1 bg-violet-500"></span>
-            </h1>
-            <p className="md:text-xl mt-4">
-              Who we are and What we do
+            <Image
+              src={Singer2}
+              alt="Singer Nii Kwei"
+              width={700}
+              height={500}
+              className="w-full h-[420px] object-cover"
+            />
+            {/* subtle violet tint bottom edge */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-violet-500" />
+          </div>
+
+          <div data-aos="fade-left">
+            <SectionHeading eyebrow="What Drives Us" title="Our Mission" />
+            <p className="text-gray-600 leading-relaxed lg:text-base">
+              At Nii Kwei Ministries, our mission is to transform lives and
+              build a Christ-centered legacy through worship, discipleship, and
+              outreach. We are committed to equipping believers, raising
+              leaders, and advancing God's kingdom through faith-driven
+              initiatives.
             </p>
           </div>
         </div>
-      </div>
 
-       {/* the Vision and Mission Section */}
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-100" />
 
-      <div className="lg:py-10 flex flex-col gap-10 lg:px-40 px-6">
-        <div className='py-10 flex flex-col gap-10'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 items-center gap-10 mt-10 lg:mt-20'>
-          <Image src={Singer2} alt="Singer Nii Kwei" width={700} height={500} className="max-lg:order-2" data-aos="fade-right"/>
-            <div className="flex flex-col gap-3" data-aos="fade-left">
-              <h1 className="text-2xl lg:text-3xl font-semibold relative pb-1">
-                Our Mission
-                <span className="absolute left-0 bottom-0 w-[25%] h-1 bg-violet-500"></span>
-              </h1>
-              <ul>
-                <li className="max-lg:text-sm">At Nii Kwei Ministries, our mission is to transform lives and build a Christ-centered legacy through worship, discipleship, and outreach. We are committed to equipping believers, raising leaders, and advancing God's kingdom through faith-driven initiatives.</li>
-              </ul>
-            </div>
+        {/* What We Do */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20 py-16 lg:py-24">
+          <div
+            className="lg:order-2 relative rounded-2xl overflow-hidden shadow-xl"
+            data-aos="fade-right"
+          >
+            <Image
+              src={Singer1}
+              alt="Minister Nii Kwei"
+              width={700}
+              height={500}
+              className="w-full h-[420px] object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-violet-500" />
           </div>
-          <div className='grid grid-cols-1 lg:grid-cols-2 items-center gap-10' >
-            <div className="lg:order-2" data-aos="fade-right">
-              <Image src={Singer1} alt="Founder1" width={700} height={500} />
-            </div>
-            <div className="flex flex-col gap-3" data-aos="fade-left">
-            <h1 className="text-2xl lg:text-3xl font-semibold relative pb-1">
-              What We Do
-              <span className="absolute left-0 bottom-0 w-[25%] h-1 bg-violet-500"></span>
-            </h1>
-              <ul>
-                <li className="max-lg:text-sm">We engage in worship experiences, outreach efforts, and community impact projects designed to inspire, equip, and transform. Through our various initiatives, we aim to: <br/>
-                <ul className='flex flex-col gap-1 py-4'>
-                  {Do.map((item, id) => {
-                    return(
-                      <li key={id} className='flex items-center gap-2'>
-                        <div className='h-2 w-2 rounded-full bg-purple-500'></div>
-                        <p>{item.info}</p>
-                      </li>
-                    )
-                  })}
-                </ul>
-                </li>
-              </ul>
-            </div>
+
+          <div data-aos="fade-left">
+            <SectionHeading eyebrow="Our Activities" title="What We Do" />
+            <p className="text-gray-600 leading-relaxed">
+              We engage in worship experiences, outreach efforts, and community
+              impact projects designed to inspire, equip, and transform. Through
+              our various initiatives, we aim to:
+            </p>
+            <BulletList items={Do} />
           </div>
-          <div className='grid grid-cols-1 lg:grid-cols-2 items-center gap-10 mt-10 lg:mt-20'>
-          <div className="max-lg:order-2" data-aos="fade-right">
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-100" />
+
+        {/* Outreach */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20 py-16 lg:py-24">
+          <div
+            className="max-lg:order-2 rounded-2xl overflow-hidden shadow-xl"
+            data-aos="fade-right"
+          >
             <RotatingImage />
           </div>
-            <div className="flex flex-col gap-3" data-aos="fade-left">
-              <h1 className="text-2xl lg:text-3xl font-semibold relative pb-1">
-                Outreach Mission
-                <span className="absolute left-0 bottom-0 w-[25%] h-1 bg-violet-500"></span>
-              </h1>
-              <ul>
-                <li className="max-lg:text-sm">Nii Kwei Community Touch, the outreach arm of the ministries undertakes programs designed to impact impoverished youth in deprived communities. We believe in touching lives tangibly as our Lord and Savior did, showing compassion to the needy.</li>
-              </ul>
-            </div>
+
+          <div data-aos="fade-left">
+            <SectionHeading
+              eyebrow="Community Impact"
+              title="Outreach Mission"
+            />
+            <p className="text-gray-600 leading-relaxed">
+              Nii Kwei Community Touch, the outreach arm of the ministries,
+              undertakes programs designed to impact impoverished youth in
+              deprived communities. We believe in touching lives tangibly as our
+              Lord and Savior did, showing compassion to the needy.
+            </p>
           </div>
-          <div className='grid grid-cols-1 lg:grid-cols-2 items-center gap-10'>
-            <div className="lg:order-2" data-aos="fade-right">
-              <Image src={Worship} alt="Founder1" width={700} height={500} />
-            </div>
-            <div className="flex flex-col gap-3" data-aos="fade-left">
-            <h1 className="text-2xl lg:text-3xl font-semibold relative pb-1">
-              Worship & Music Ministry
-              <span className="absolute left-0 bottom-0 w-[25%] h-1 bg-violet-500"></span>
-            </h1>
-              <ul>
-                <li className="max-lg:text-sm">At the heart of Nii Kwei Ministries is a deep passion for worship. We believe worship is more than just music—it is a lifestyle of surrender, reverence, and intimacy with God. Through our music ministry, worship gatherings, and special events, we seek to: <br/>
-                <ul className='flex flex-col gap-1 py-4'>
-                  {worship.map((item, id) => {
-                    return(
-                      <li key={id} className='flex items-center gap-2'>
-                        <div className='h-2 w-2 rounded-full bg-purple-500'></div>
-                        <p>{item.info}</p>
-                      </li>
-                    )
-                  })}
-                </ul>
-                </li>
-              </ul>
-            </div>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-100" />
+
+        {/* Worship & Music */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20 py-16 lg:py-24">
+          <div
+            className="lg:order-2 relative rounded-2xl overflow-hidden shadow-xl"
+            data-aos="fade-right"
+          >
+            <Image
+              src={Worship}
+              alt="Worship ministry"
+              width={700}
+              height={500}
+              className="w-full h-[420px] object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-violet-500" />
+          </div>
+
+          <div data-aos="fade-left">
+            <SectionHeading
+              eyebrow="Heart of the Ministry"
+              title="Worship & Music Ministry"
+            />
+            <p className="text-gray-600 leading-relaxed">
+              At the heart of Nii Kwei Ministries is a deep passion for worship.
+              We believe worship is more than just music — it is a lifestyle of
+              surrender, reverence, and intimacy with God. Through our music
+              ministry, worship gatherings, and special events, we seek to:
+            </p>
+            <BulletList items={worship} />
           </div>
         </div>
       </div>
-      {/*The Team Section */}
-      <div>
-        <TeamSection/>
+
+      {/* ── Team ── */}
+      <div className="bg-gray-50 border-t border-gray-100 py-4">
+        <TeamSection />
       </div>
-      {/*Core Values Section */}
-      <div>
-        <Values/>
+
+      {/* ── Core Values ── */}
+      <div className="bg-white border-t border-gray-100 py-4">
+        <Values />
       </div>
-      {/*the Gallery section */}
-      <div>
-        <Gallery/>
+
+      {/* ── Gallery ── */}
+      <div className="bg-gray-50 border-t border-gray-100 py-4">
+        <Gallery />
       </div>
-      <div className="flex items-center justify-center w-full max-lg:h-[40vh]">
-          <Image src={Banner} alt='banner' className="bg-cover max-lg:hidden bg-center relative w-full h-full" />
-          <Image src={Banner2} alt='banner' className="bg-cover lg:hidden bg-center relative w-full h-full" />
-          <div className='bg-black absolute w-full bg-opacity-20'></div>
-          <div data-aos="zoom-in" className='absolute max-md:mt-10 w-full flex flex-col gap-5 items-center justify-center text-white px-6 lg:px-20'>
-            <h1 className='text-3xl lg:text-5xl font-semibold lg:w-[40%] text-center leading-none'>Join Us</h1>
-            <p className='lg:w-[60%] text-center max-lg:text-sm'>We invite you to be part of this journey! Whether through prayer, participation, or partnership, you can help us build lives, inspire faith, and transform communities for Christ.</p>
-          </div>
+
+      {/* ── CTA Banner ── */}
+      <div className="relative flex items-center justify-center w-full min-h-[44vh] overflow-hidden">
+        <Image
+          src={Banner}
+          alt="Join us banner"
+          fill
+          className="object-cover max-lg:hidden"
+        />
+        <Image
+          src={Banner2}
+          alt="Join us banner"
+          fill
+          className="object-cover lg:hidden"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/50" />
+
+        <div
+          className="relative z-10 flex flex-col items-center gap-5 text-center px-6 lg:px-20 py-16"
+          data-aos="zoom-in"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[3px] text-violet-300">
+            Be Part of It
+          </p>
+          <h2 className="text-3xl lg:text-5xl font-bold text-white lg:w-[40%] leading-tight">
+            Join Us
+          </h2>
+          <div className="w-12 h-[3px] bg-violet-500 rounded-full" />
+          <p className="text-white/65 lg:w-[50%] text-sm lg:text-base leading-relaxed max-w-xl">
+            We invite you to be part of this journey! Whether through prayer,
+            participation, or partnership, you can help us build lives, inspire
+            faith, and transform communities for Christ.
+          </p>
+          <Link href="/contact">
+            <button
+              className="mt-2 px-8 py-3 bg-button hover:opacity-90 text-white font-semibold
+              text-sm rounded-lg transition-all duration-200 shadow-lg hover:shadow-violet-500/30
+              hover:-translate-y-0.5"
+            >
+              Get In Touch
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default page
+export default page;
