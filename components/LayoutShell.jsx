@@ -4,17 +4,21 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { usePathname } from "next/navigation";
+import useAnalytics from "@/utils/useAnalytics";
+
 
 const LayoutShell = ({ children }) => {
+  const pathname = usePathname();
+  const isAdmin = pathname.startsWith("/admin");
 
-  const pathname = usePathname()
-  const admin = pathname.startsWith('/admin')
+  // Track every page view automatically — skips /admin routes internally
+  useAnalytics();
 
   return (
     <>
-     { !admin && <Navbar />}
+      {!isAdmin && <Navbar />}
       {children}
-      {!admin && <Footer />}
+      {!isAdmin && <Footer />}
     </>
   );
 };

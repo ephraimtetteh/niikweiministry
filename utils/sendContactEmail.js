@@ -1,6 +1,5 @@
 // utils/sendContactEmail.js
 // Server-side only. Same SMTP env vars as sendDonationEmails.js
-// Also add NEXT_PUBLIC_BASE_URL=https://yourdomain.com for the dashboard link in admin emails.
 
 import nodemailer from "nodemailer";
 
@@ -23,35 +22,37 @@ const adminEmails = () =>
     .filter(Boolean);
 
 // ─── Shared shell ─────────────────────────────────────────────────────────────
-function baseHtml(body) {
+function shell(body) {
   return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{background:#F4F2EE;font-family:Helvetica,Arial,sans-serif}
-    .wrap{max-width:580px;margin:40px auto;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.10)}
-    .header{background:#0D0D12;padding:36px 40px;text-align:center}
-    .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8B5CF6;font-weight:600;margin-bottom:10px}
-    .header h1{font-size:22px;font-weight:700;color:#fff;font-family:Georgia,serif;line-height:1.3}
-    .header p{font-size:13px;color:rgba(255,255,255,.5);margin-top:6px}
-    .badge{display:inline-block;margin:18px auto 0;padding:5px 16px;border-radius:50px;border:1.5px solid rgba(139,92,246,.4);background:rgba(139,92,246,.12);font-size:11px;font-weight:600;color:#A78BFA;letter-spacing:1px;text-transform:uppercase}
+    body{background:#F8F7F5;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a}
+    .wrap{max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+    .header{background:#6D28D9;padding:32px 40px;text-align:center}
+    .eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:600;margin-bottom:8px}
+    .header h1{font-size:22px;font-weight:700;color:#fff;font-family:Georgia,serif}
+    .header p{font-size:13px;color:rgba(255,255,255,.65);margin-top:5px}
+    .badge{display:inline-block;margin:14px auto 0;padding:4px 14px;border-radius:50px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);font-size:11px;font-weight:600;color:#fff;letter-spacing:1px;text-transform:uppercase}
     .body{padding:28px 40px}
-    .label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:12px}
-    .row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0f0f0}
+    .section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:12px}
+    .row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #F3F4F6}
     .row:last-child{border-bottom:none}
-    .rl{font-size:12.5px;color:#999;min-width:130px}
-    .rv{font-size:13px;font-weight:600;color:#0D0D12;text-align:right;max-width:60%}
-    .msg{margin-top:18px;background:#FAFAF8;border-left:3px solid #7C3AED;border-radius:0 8px 8px 0;padding:14px 18px}
-    .msg p{font-size:13.5px;color:#444;line-height:1.75;white-space:pre-wrap}
-    .info{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:14px 18px;margin-top:18px}
-    .info p{font-size:13px;color:#555;line-height:1.7}
-    .dash-btn{display:inline-block;margin-top:18px;padding:10px 24px;background:#6D28D9;color:#fff!important;text-decoration:none;border-radius:10px;font-size:13px;font-weight:600}
-    .footer{background:#F4F2EE;padding:20px 40px;text-align:center}
-    .footer p{font-size:12px;color:#bbb;margin-top:3px}
+    .rl{font-size:12.5px;color:#6B7280;min-width:120px}
+    .rv{font-size:13px;font-weight:600;color:#111827;text-align:right;max-width:60%}
+    .message-box{background:#FAFAFA;border-left:3px solid #7C3AED;border-radius:0 8px 8px 0;padding:14px 18px;margin-top:16px}
+    .message-box p{font-size:13.5px;color:#374151;line-height:1.75;white-space:pre-wrap}
+    .note-box{background:#F5F0FF;border:1px solid #E4D4FF;border-radius:10px;padding:14px 18px;margin-top:18px}
+    .note-box p{font-size:13px;color:#5B21B6;line-height:1.7}
+    .cta-btn{display:inline-block;margin-top:18px;padding:11px 26px;background:#6D28D9;color:#fff!important;text-decoration:none;border-radius:10px;font-size:13px;font-weight:700}
+    .footer{background:#F8F7F5;padding:20px 40px;text-align:center;border-top:1px solid #F3F4F6}
+    .footer p{font-size:11.5px;color:#9CA3AF;margin-top:3px}
+    .footer a{color:#7C3AED;text-decoration:none}
   </style></head>
   <body><div class="wrap">${body}</div></body></html>`;
 }
 
-// ─── Auto-reply ───────────────────────────────────────────────────────────────
+// ─── Auto-reply to submitter ──────────────────────────────────────────────────
 function autoReplyHtml({ name, formType }) {
   const label =
     formType === "events"
@@ -61,7 +62,8 @@ function autoReplyHtml({ name, formType }) {
         : "Message";
   const eta =
     formType === "booking" ? "3 – 5 business days" : "1 – 2 business days";
-  return baseHtml(`
+
+  return shell(`
     <div class="header">
       <p class="eyebrow">✦ Nii Kwei Ministries</p>
       <h1>We received your ${label}!</h1>
@@ -69,7 +71,7 @@ function autoReplyHtml({ name, formType }) {
       <div class="badge">${label}</div>
     </div>
     <div class="body">
-      <div class="info">
+      <div class="note-box">
         <p>Thank you for contacting Nii Kwei Ministries. We have received your ${label.toLowerCase()} and our team will get back to you within <strong>${eta}</strong>.<br/><br/>Follow us on social media for the latest updates, events, and music releases.</p>
       </div>
     </div>
@@ -81,22 +83,26 @@ function autoReplyHtml({ name, formType }) {
 
 // ─── Admin: general ───────────────────────────────────────────────────────────
 function generalAdminHtml(d) {
-  return baseHtml(`
+  return shell(`
     <div class="header">
-      <p class="eyebrow">New Message</p><h1>General Inquiry</h1>
+      <p class="eyebrow">New Message</p>
+      <h1>General Inquiry</h1>
       <p>Received via the contact form.</p>
       <div class="badge">General</div>
     </div>
     <div class="body">
-      <p class="label">Sender</p>
+      <p class="section-label">Sender</p>
       <div class="row"><span class="rl">Name</span><span class="rv">${d.name}</span></div>
       <div class="row"><span class="rl">Email</span><span class="rv">${d.email}</span></div>
       ${d.phone ? `<div class="row"><span class="rl">Phone</span><span class="rv">${d.phone}</span></div>` : ""}
       ${d.subject ? `<div class="row"><span class="rl">Subject</span><span class="rv">${d.subject}</span></div>` : ""}
-      <div class="msg"><p>${d.message}</p></div>
-      <a href="${BASE_URL}/admin" class="dash-btn">Open Dashboard →</a>
+      <div class="message-box"><p>${d.message}</p></div>
+      <a href="${BASE_URL}/admin" class="cta-btn">Open Dashboard →</a>
     </div>
-    <div class="footer"><p>Nii Kwei Ministries · Internal</p><p>Reply to: ${d.email}</p></div>`);
+    <div class="footer">
+      <p>Nii Kwei Ministries · Internal</p>
+      <p>Reply to: <a href="mailto:${d.email}">${d.email}</a></p>
+    </div>`);
 }
 
 // ─── Admin: events ────────────────────────────────────────────────────────────
@@ -111,19 +117,24 @@ function eventsAdminHtml(d) {
     d.venue && ["Venue", d.venue],
     d.attendance && ["Attendance", d.attendance],
   ].filter(Boolean);
-  return baseHtml(`
+
+  return shell(`
     <div class="header">
-      <p class="eyebrow">New Inquiry</p><h1>Events Inquiry</h1>
+      <p class="eyebrow">New Inquiry</p>
+      <h1>Events Inquiry</h1>
       <p>A new events inquiry has been submitted.</p>
       <div class="badge">Events</div>
     </div>
     <div class="body">
-      <p class="label">Details</p>
+      <p class="section-label">Details</p>
       ${rows.map(([l, v]) => `<div class="row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join("")}
-      ${d.message ? `<div class="msg"><p>${d.message}</p></div>` : ""}
-      <a href="${BASE_URL}/admin" class="dash-btn">Open Dashboard →</a>
+      ${d.message ? `<div class="message-box"><p>${d.message}</p></div>` : ""}
+      <a href="${BASE_URL}/admin" class="cta-btn">Open Dashboard →</a>
     </div>
-    <div class="footer"><p>Nii Kwei Ministries · Internal</p><p>Reply to: ${d.email}</p></div>`);
+    <div class="footer">
+      <p>Nii Kwei Ministries · Internal</p>
+      <p>Reply to: <a href="mailto:${d.email}">${d.email}</a></p>
+    </div>`);
 }
 
 // ─── Admin: booking ───────────────────────────────────────────────────────────
@@ -138,25 +149,31 @@ function bookingAdminHtml(d) {
     d.alternate_date && ["Alternate Date", d.alternate_date],
     d.venue && ["Location", d.venue],
   ].filter(Boolean);
-  return baseHtml(`
+
+  return shell(`
     <div class="header">
-      <p class="eyebrow">New Request</p><h1>Booking Request</h1>
+      <p class="eyebrow">New Request</p>
+      <h1>Booking Request</h1>
       <p>A booking request has been submitted.</p>
       <div class="badge">Booking</div>
     </div>
     <div class="body">
-      <p class="label">Request Details</p>
+      <p class="section-label">Request Details</p>
       ${rows.map(([l, v]) => `<div class="row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join("")}
-      ${d.message ? `<div class="msg"><p>${d.message}</p></div>` : ""}
-      <a href="${BASE_URL}/admin" class="dash-btn">Open Dashboard →</a>
+      ${d.message ? `<div class="message-box"><p>${d.message}</p></div>` : ""}
+      <a href="${BASE_URL}/admin" class="cta-btn">Open Dashboard →</a>
     </div>
-    <div class="footer"><p>Nii Kwei Ministries · Internal</p><p>Reply to: ${d.email}</p></div>`);
+    <div class="footer">
+      <p>Nii Kwei Ministries · Internal</p>
+      <p>Reply to: <a href="mailto:${d.email}">${d.email}</a></p>
+    </div>`);
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 export async function sendContactEmail(formType, data) {
   const transporter = createTransport();
   const admins = adminEmails();
+
   const labelMap = {
     general: "General Inquiry",
     events: "Events Inquiry",

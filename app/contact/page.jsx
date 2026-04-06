@@ -165,7 +165,7 @@ export default function ContactPage() {
           fill
           className="object-cover lg:hidden"
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/20" />
         <div
           className="relative z-10 w-full px-6 lg:px-40 pb-16"
           data-aos="fade-right"
