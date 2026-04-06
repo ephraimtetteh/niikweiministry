@@ -1,14 +1,14 @@
 // app/admin/layout.jsx
-// Dedicated layout for all /admin/* pages.
-// LayoutShell already suppresses Navbar + Footer for /admin routes,
-// so this just ensures a clean dark background and correct metadata.
+// force-dynamic prevents Next.js from trying to statically prerender any admin page.
+// Admin pages always need cookies + live data — static prerender would fail.
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Admin — Nii Kwei Ministries",
-  description: "Internal admin dashboard",
-  robots: "noindex, nofollow", // never appear in search results
+  robots: "noindex, nofollow",
 };
 
 export default function AdminLayout({ children }) {
-  return <div className="min-h-screen bg-black antialiased">{children}</div>;
+  return <div className="min-h-screen bg-gray-50 antialiased">{children}</div>;
 }

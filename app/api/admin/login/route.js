@@ -1,27 +1,27 @@
 // app/api/admin/login/route.js
+// This runs in the Node.js runtime (NOT Edge), so the full jose import is fine here.
+// The Edge Runtime warning only applies to middleware.js — this file is unaffected.
 //
 // Required .env.local:
-//   ADMIN_JWT_SECRET   — long random string
+//   ADMIN_JWT_SECRET  — must match middleware.js
+//   ADMIN_PASS_1      — password for tettehephraim.64@gmail.com
+//   ADMIN_PASS_2      — password for rubyotto@gmail.com
 
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 const SECRET = new TextEncoder().encode(
-  process.env.ADMIN_JWT_SECRET ?? "fallback-secret-change-me",
+  process.env.ADMIN_JWT_SECRET ?? "fallback-secret-change-me-in-production",
 );
 
 // ── Authorised admin emails ───────────────────────────────────────────────────
-const ADMIN_EMAILS = ["tettehephraim.64@gmail.com", "rubyotto@gmail.com"];
+const ADMIN_EMAILS = ["tettehephraim.64@gmail.com", "ruby.otto@gmail.com"];
 
-// Simple per-email password map.
-// Passwords are stored in env vars — never hardcoded in production.
-// Add ADMIN_PASS_1 and ADMIN_PASS_2 to .env.local
 function getPassword(email) {
-  const map = {
+  return {
     "tettehephraim.64@gmail.com": process.env.ADMIN_PASS_1,
     "rubyotto@gmail.com": process.env.ADMIN_PASS_2,
-  };
-  return map[email];
+  }[email];
 }
 
 export async function POST(request) {
@@ -38,23 +38,23 @@ export async function POST(request) {
     const normalised = email.toLowerCase().trim();
 
     if (!ADMIN_EMAILS.includes(normalised)) {
-      // Deliberate vague message — don't reveal which emails are valid
+      // Vague on purpose — don't reveal which emails are valid
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    const expectedPassword = getPassword(normalised);
-    if (!expectedPassword || password !== expectedPassword) {
+    const expected = getPassword(normalised);
+    if (!expected || password !== expected) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Issue JWT — 8-hour expiry
+    // Issue a signed JWT — 8 hour expiry
     const token = await new SignJWT({ email: normalised, role: "admin" })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setExpirationTime("8h")
       .sign(SECRET);
 
-    // Set httpOnly cookie
+    // Set httpOnly cookie (JS can't read it — XSS-safe)
     const cookieStore = await cookies();
     cookieStore.set("admin_token", token, {
       httpOnly: true,
