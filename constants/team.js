@@ -54,6 +54,15 @@ export const teamMembers = [
     //   imageUrl: niiKwei1,
     // },
     // {
+    //   name: "Karen Ofori",
+    //   title: "Outreach Coordinator",
+    //   shortDescription:
+    //     "Karen is a young woman, motivated to mentor, guide, and coach young people, particularly young women, to realise their academic and professional dreams regardless of the prevailing circumstances...",
+    //   fullDescription:
+    //     "Karen is a young woman, motivated to mentor, guide, and coach young people, particularly young women, to realise their academic and professional dreams regardless of the prevailing circumstances. Through her guidance, three young women have gained admission into universities, pursuing degrees aligned with their career aspirations. Karen currently serves at Nii Kwei Ministries as the Outreach Coordinator. There, she is responsible for advancing the ministry’s impact and spreading the gospel through service with a heart of compassion and dedication. Karen joined the ministry in January 2025. Karen also fellowships with the Fountain of Glory A/G, where she serves as the General Secretary of the Youth Ministry for 2.5 years and as a Youth Bible Study Teacher. She works as an Investment Banking Analyst in Accra and has participated in the arrangement of capital for corporate clients in the agriculture, pharmaceutical, hospitality and real estate industries. As an analyst, she is primarily responsible for providing financial and economic analysis, preparing key deal documents to facilitate corporate transactions and deal strategies, and maintaining client relationships.She holds a BSc. in Business Administration from Ashesi University.",
+    //   imageUrl: niiKwei1,
+    // },
+    // {
     //   name: "Cherie Appiah Gyimah Twum",
     //   title: "Fundraising Coordinator and Partnership Manager",
     //   shortDescription:

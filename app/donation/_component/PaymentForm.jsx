@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { formatCurrency, donationFrequencies } from "@/utils/donationUtils";
 
-const PAYSTACK_PUBLIC_KEY = "pk_test_74319b74f9e616edf02cf8cb743b6582f2a4099a";
+const PAYSTACK_PUBLIC_KEY = "pk_live_4b3f240902e99cf54f92528524cfcb7aac2999b4";
 
 function loadPaystackScript() {
   return new Promise((resolve, reject) => {
