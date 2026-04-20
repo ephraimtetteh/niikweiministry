@@ -59,7 +59,7 @@ const page = () => {
           alt="hero"
           className="lg:object-cover lg:hidden object-fill bg-c bg-center relative w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-purple-900/40 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-purple-900/10 to-black/30 "></div>
         <div className="absolute max-md:mt-10 w-full bottom-10 flex flex-col gap-5 justify-center text-white px-6 lg:px-32">
           <div className="w-full flex flex-col gap-5 justify-center text-white">
             <p
@@ -68,10 +68,10 @@ const page = () => {
               data-aos-delay="100"
             >
               Welcome to Nii Kwei Ministries
-              <span className="absolute left-0 bottom-0 w-20 h-1 bg-violet-500"></span>
+              <span className="absolute left-0 bottom-0 w-20 h-1 bg-violet-200"></span>
             </p>
             <h1
-              className="text-4xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.6)]"
+              className="text-4xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.1)]"
               data-aos="slide-right"
               data-aos-delay="300"
             >
